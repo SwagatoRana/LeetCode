@@ -2,19 +2,21 @@ class Solution {
 public:
     int numberOfSpecialChars(string word) {
         int size = word.size(), count = 0;
-        vector<vector<int>>l(26);
-        vector<vector<int>>u(26);
+        vector<vector<int>>l(26, {-1});
+        vector<vector<int>>u(26, {-1});
         for(int i = 0; i < size; i++) {
             if(word[i] >= 'a' && word[i] <= 'z') {
-                l[word[i] - 'a'].push_back(i);
+                l[word[i] - 'a'][0] = i;
             }
             else {
-                u[word[i] - 'A'].push_back(i);
+                if(u[word[i] - 'A'][0] == -1) {
+                    u[word[i] - 'A'][0] = i;
+                }
             }
         }
         for(int i = 0; i < 26; i++) {
-            if(l[i].size() == 0 || u[i].size() == 0) continue;
-            if(l[i][l[i].size() - 1] < u[i][0]) count++;
+            if(l[i][0] == -1 || u[i][0] == -1) continue;
+            if(l[i][0] < u[i][0]) count++;
         }
         return count;
     }
