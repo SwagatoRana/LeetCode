@@ -2,18 +2,18 @@ class Solution {
 public:
     int numberOfSpecialChars(string word) {
         int size = word.size(), count = 0;
-        set<char> s;
+        vector<int> checked(26, 0);
         for(int i = 0; i < size; i++) {
-            if(s.count(tolower(word[i])) == 1) {
+            if(checked[tolower(word[i]) - 'a'] == 1) {
                 continue;
             }
             else {
                 if(word[i] >= 'A' && word[i] <= 'Z') {
-                    s.insert(tolower(word[i]));
+                    checked[tolower(word[i]) - 'a'] = 1;
                     continue;
                 }
                 else {
-                    s.insert(word[i]);
+                    checked[word[i] - 'a'] = 1;
                     int f = 0;
                     int j = i + 1;
                     while(j < size) {
