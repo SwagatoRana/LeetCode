@@ -27,7 +27,6 @@ public:
                     }
                     if(j == size && f == 1) {
                         count++;
-                        cout << word[i] << " ";
                     }
                 }
             }
