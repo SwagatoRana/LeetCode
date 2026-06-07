@@ -1,0 +1,2 @@
+# Write your MySQL query statement below
+select A.player_id, A.event_date as first_login from Activity A where event_date = (select min(event_date) from Activity where Activity.player_id = A.player_id);
