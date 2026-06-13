@@ -8,36 +8,21 @@ public:
             if(path[i] == '/') {
                 i++;
             }
-            else if(path[i] == '.') {
-                int sum = 0;
-                string s = "";
-                while(i < size && path[i] != '/') {
-                    s += path[i];
-                    sum++, i++;
-                }
-                if(sum == 1) {
-                    continue;
-                }
-                else if(sum == 2 && top >= 0 && path[i - 1] == '.') {
-                    top--;
-                }
-                else if(sum == 2 && path[i - 1] != '.') {
-                    top++;
-                    stack[top] = s;
-                }
-                else if(sum > 2) {
-                    top++;
-                    stack[top] = s;
-                }
-            }
             else {
                 string s = "";
                 while(i < size && path[i] != '/') {
-                    s += path[i];
-                    i++;
+                    s += path[i++];
                 }
-                top++;
-                stack[top] = s;
+                if(s == ".") {
+                    continue;
+                }
+                else if(s == "..") {
+                    if(top >= 0) top--;
+                }
+                else {
+                    top++;
+                    stack[top] = s;
+                }
             }
         }
         string ans = "";
